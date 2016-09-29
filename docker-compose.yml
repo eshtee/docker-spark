@@ -2,7 +2,7 @@ version: '2'
 services:
   master:
     container_name: master
-    image: syedahmed/spark_1_6_2
+    image: syedahmed/spark:1.6.2
     command: /usr/local/spark/bin/spark-class org.apache.spark.deploy.master.Master -h master
     hostname: master
     environment:
@@ -24,7 +24,7 @@ services:
     volumes:
       - ./conf/master:/conf
   slave:
-    image: syedahmed/spark_1_6_2
+    image: syedahmed/spark:1.6.2
     command: /usr/local/spark/bin/spark-class org.apache.spark.deploy.worker.Worker spark://master:7077
     hostname: slave
     environment:
@@ -47,7 +47,7 @@ services:
     depends_on:
          - master
   client:
-      image: syedahmed/spark_1_6_2
+      image: syedahmed/spark:1.6.2
       command: /usr/local/spark/bin/spark-submit   --master spark://master:7077   --class org.apache.spark.examples.SparkPi "/usr/local/spark/lib/spark-examples-1.6.2-hadoop2.6.0.jar" 10
       hostname: client
       depends_on:
